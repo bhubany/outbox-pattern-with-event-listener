@@ -1,0 +1,29 @@
+version: "3.8"
+
+services:
+  postgres:
+    build:
+      dockerfile: postgres.dockerfile
+      context: .
+    container_name: outbox_event_listner_pg
+    environment:
+      POSTGRES_USER: pg-admin
+      POSTGRES_PASSWORD: password123
+      POSTGRES_DB: mydb
+    ports:
+      - "5432:5432"
+    networks:
+      - outbox-net
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "pg-admin"]
+    restart: unless-stopped
+
+volumes:
+  pgdata:
+    external: true
+
+networks:
+  outbox-net:
+    external: true
