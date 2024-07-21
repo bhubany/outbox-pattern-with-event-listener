@@ -1,3 +1,17 @@
 spring:
   application:
     name: outboxWithEventListner
+  datasource:
+    hikari:
+      connectionTimeout: 20000
+      maximumPoolSize: 5
+    url: jdbc:postgresql://localhost:5432/mydb
+    username: pg-admin
+    password: password123
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update # or create, create-drop, validate
+      dialect: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true # to show SQL queries in logs
+debug: true
